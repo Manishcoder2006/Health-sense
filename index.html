@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthSense AI — Your Personal AI Health Assistant</title>
+  <meta name="description" content="AI-powered health assistant that analyzes symptoms, predicts health risks, and provides smart recommendations. Not a substitute for professional medical advice.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo" onclick="navigateTo('landing')">
+      <div class="nav-logo-icon"><i class="fas fa-brain"></i></div>
+      <span>Health<span class="text-gradient">Sense</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="nav-link active" data-page="landing" onclick="navigateTo('landing')">Home</a>
+      <a href="#" class="nav-link" data-page="symptoms" onclick="navigateTo('symptoms')">Symptom Check</a>
+      <a href="#" class="nav-link" data-page="recommendations" onclick="navigateTo('recommendations')">Recommendations</a>
+      <a href="#" class="nav-link" data-page="doctors" onclick="navigateTo('doctors')">Find Doctors</a>
+      <a href="#" class="nav-link" data-page="history" onclick="navigateTo('history')">History</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <a href="#" class="btn btn-primary btn-sm" onclick="navigateTo('symptoms')">Get Started</a>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" class="nav-link active" data-page="landing" onclick="navigateTo('landing');toggleMobileNav()">Home</a>
+  <a href="#" class="nav-link" data-page="symptoms" onclick="navigateTo('symptoms');toggleMobileNav()">Symptom Check</a>
+  <a href="#" class="nav-link" data-page="recommendations" onclick="navigateTo('recommendations');toggleMobileNav()">Recommendations</a>
+  <a href="#" class="nav-link" data-page="doctors" onclick="navigateTo('doctors');toggleMobileNav()">Find Doctors</a>
+  <a href="#" class="nav-link" data-page="history" onclick="navigateTo('history');toggleMobileNav()">History</a>
+</div>
+
+<!-- ===== NOTIFICATION ===== -->
+<div class="notification" id="notification">
+  <div class="notif-icon"><i class="fas fa-shield-halved" style="color:var(--primary)"></i></div>
+  <div>
+    <div class="notif-title">Your Privacy Matters</div>
+    <div class="notif-text">Your health data is encrypted and never stored without your consent.</div>
+  </div>
+  <button class="notif-close" onclick="hideNotification()"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- ==================== PAGE: LANDING ==================== -->
+<div class="page active" id="page-landing">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-sparkles"></i> AI-Powered Health Intelligence</div>
+        <h1 class="hero-title">Your Personal <span class="text-gradient">AI Health</span> Assistant</h1>
+        <p class="hero-subtitle">Get instant health insights powered by advanced AI. Analyze symptoms, understand risks, and receive personalized recommendations — all in one place.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary btn-lg" onclick="navigateTo('symptoms')"><i class="fas fa-stethoscope"></i> Check Symptoms</a>
+          <a href="#" class="btn btn-secondary btn-lg" onclick="document.querySelector('.features').scrollIntoView({behavior:'smooth'})"><i class="fas fa-info-circle"></i> Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-value">50K+</div><div class="stat-label">Active Users</div></div>
+          <div><div class="stat-value">100K+</div><div class="stat-label">Analyses Done</div></div>
+          <div><div class="stat-value">95%</div><div class="stat-label">Accuracy Rate</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="hero_illustration.png" alt="AI Health Assistant Illustration" class="hero-image" onerror="this.style.display='none'">
+        <div class="hero-float c1">
+          <div class="float-icon green"><i class="fas fa-heart-pulse"></i></div>
+          <div><div class="float-text">Health Score</div><div class="float-sub">92 / 100</div></div>
+        </div>
+        <div class="hero-float c2">
+          <div class="float-icon blue"><i class="fas fa-robot"></i></div>
+          <div><div class="float-text">AI Analysis</div><div class="float-sub">Ready</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label"><i class="fas fa-star"></i> Key Features</div>
+        <h2 class="section-title">Smart Health Analysis at Your Fingertips</h2>
+        <p class="section-subtitle">Powered by advanced AI to give you reliable health insights in minutes.</p>
+      </div>
+      <div class="features-grid">
+        <div class="card feature-card anim">
+          <div class="card-icon teal"><i class="fas fa-magnifying-glass-chart"></i></div>
+          <h3>Symptom Analysis</h3>
+          <p>Input your symptoms and let our AI cross-reference thousands of medical conditions to identify possible causes.</p>
+        </div>
+        <div class="card feature-card anim">
+          <div class="card-icon green"><i class="fas fa-chart-line"></i></div>
+          <h3>Health Risk Prediction</h3>
+          <p>Get an instant risk assessment with confidence levels, helping you understand the urgency of your situation.</p>
+        </div>
+        <div class="card feature-card anim">
+          <div class="card-icon purple"><i class="fas fa-lightbulb"></i></div>
+          <h3>Smart Recommendations</h3>
+          <p>Receive personalized lifestyle advice, dietary suggestions, and preventive care tips tailored to your health profile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label"><i class="fas fa-route"></i> How It Works</div>
+        <h2 class="section-title">Three Simple Steps to Better Health Insights</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card anim">
+          <div class="step-number">1</div>
+          <h3>Enter Symptoms</h3>
+          <p>Select or type your symptoms using our intuitive multi-step form.</p>
+        </div>
+        <div class="step-card anim">
+          <div class="step-number">2</div>
+          <h3>AI Analyzes</h3>
+          <p>Our AI engine processes your data against medical knowledge bases.</p>
+        </div>
+        <div class="step-card anim">
+          <div class="step-number">3</div>
+          <h3>Get Results</h3>
+          <p>View your health insights, recommendations, and next steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="trust-bar">
+        <div class="trust-item"><i class="fas fa-lock"></i> 256-bit Encrypted</div>
+        <div class="trust-item"><i class="fas fa-shield-halved"></i> HIPAA Compliant</div>
+        <div class="trust-item"><i class="fas fa-user-shield"></i> No Data Stored</div>
+        <div class="trust-item"><i class="fas fa-certificate"></i> AI Verified</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label"><i class="fas fa-quote-left"></i> Testimonials</div>
+        <h2 class="section-title">Trusted by Thousands</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="card testimonial-card anim">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"HealthSense helped me understand my symptoms and gave me the confidence to see a doctor early. Truly a lifesaver!"</p>
+          <div class="t-author">
+            <div class="t-avatar">A</div>
+            <div><div class="t-name">Ananya Sharma</div><div class="t-role">Verified User</div></div>
+          </div>
+        </div>
+        <div class="card testimonial-card anim">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"The AI analysis was surprisingly accurate. I love how it explains everything in simple language without being scary."</p>
+          <div class="t-author">
+            <div class="t-avatar">R</div>
+            <div><div class="t-name">Rahul Mehta</div><div class="t-role">Verified User</div></div>
+          </div>
+        </div>
+        <div class="card testimonial-card anim">
+          <div class="t-stars">★★★★☆</div>
+          <p class="t-text">"Clean interface, easy to use, and the recommendations are practical. My go-to for quick health check-ins."</p>
+          <div class="t-author">
+            <div class="t-avatar">P</div>
+            <div><div class="t-name">Priya Patel</div><div class="t-role">Verified User</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section anim">
+        <h2>Start Your Health Check Today</h2>
+        <p>Join 50,000+ users who trust HealthSense for quick, reliable health guidance.</p>
+        <a href="#" class="btn btn-lg" onclick="navigateTo('symptoms')"><i class="fas fa-arrow-right"></i> Check Symptoms Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3><i class="fas fa-brain" style="color:var(--primary)"></i> HealthSense</h3>
+          <p>AI-powered health guidance for everyone. This tool provides general health information and is not a substitute for professional medical advice.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#" onclick="navigateTo('symptoms')">Symptom Check</a>
+          <a href="#" onclick="navigateTo('recommendations')">Recommendations</a>
+          <a href="#" onclick="navigateTo('doctors')">Find Doctors</a>
+          <a href="#" onclick="navigateTo('history')">History</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Disclaimer</a><a href="#">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 HealthSense AI. All rights reserved. <strong>Not a medical diagnosis tool.</strong></p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ==================== PAGE: SYMPTOMS ==================== -->
+<div class="page" id="page-symptoms">
+  <div class="symptom-content">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-line" id="progressLine"></div>
+      <div class="p-step active" data-step="1"><div class="p-dot">1</div><div class="p-label">Basic Info</div></div>
+      <div class="p-step" data-step="2"><div class="p-dot">2</div><div class="p-label">Symptoms</div></div>
+      <div class="p-step" data-step="3"><div class="p-dot">3</div><div class="p-label">Duration</div></div>
+    </div>
+
+    <!-- Step 1: Basic Info -->
+    <div class="form-step active" id="step1">
+      <div class="card" style="border:none;box-shadow:var(--shadow-md)">
+        <h3 style="margin-bottom:.25rem">Tell us about yourself</h3>
+        <p style="color:var(--txt-2);font-size:.9rem;margin-bottom:1.5rem">This helps our AI provide more accurate analysis.</p>
+        <div class="form-group">
+          <label class="form-label">Age Range</label>
+          <div class="option-grid" id="ageGrid">
+            <div class="option-card" data-value="18-25">18–25</div>
+            <div class="option-card" data-value="26-35">26–35</div>
+            <div class="option-card" data-value="36-45">36–45</div>
+            <div class="option-card" data-value="46-55">46–55</div>
+            <div class="option-card" data-value="55+">55+</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender <span>(optional)</span></label>
+          <div class="option-grid" id="genderGrid">
+            <div class="option-card" data-value="male"><i class="fas fa-mars"></i> Male</div>
+            <div class="option-card" data-value="female"><i class="fas fa-venus"></i> Female</div>
+            <div class="option-card" data-value="other"><i class="fas fa-genderless"></i> Other</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Known Conditions <span>(optional)</span></label>
+          <input type="text" class="form-input" id="conditionsInput" placeholder="e.g., Diabetes, Asthma, Hypertension...">
+        </div>
+        <div class="form-nav">
+          <div></div>
+          <button class="btn btn-primary" onclick="nextStep(2)">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Symptoms -->
+    <div class="form-step" id="step2">
+      <div class="card" style="border:none;box-shadow:var(--shadow-md)">
+        <h3 style="margin-bottom:.25rem">What symptoms are you experiencing?</h3>
+        <p style="color:var(--txt-2);font-size:.9rem;margin-bottom:1.5rem">Select from common symptoms or type your own.</p>
+        <div class="form-group">
+          <div style="display:flex;gap:.75rem;align-items:center">
+            <input type="text" class="form-input" id="symptomSearch" placeholder="Type a symptom..." style="flex:1" oninput="filterSymptoms(this.value)">
+            <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice input"><i class="fas fa-microphone"></i></button>
+          </div>
+          <div id="symptomSuggestions" style="display:none;margin-top:.5rem"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Common Symptoms</label>
+          <div class="symptom-tags" id="symptomTags">
+            <button class="symptom-tag" data-symptom="Fever"><i class="fas fa-temperature-high"></i> Fever</button>
+            <button class="symptom-tag" data-symptom="Headache"><i class="fas fa-head-side-virus"></i> Headache</button>
+            <button class="symptom-tag" data-symptom="Fatigue"><i class="fas fa-battery-quarter"></i> Fatigue</button>
+            <button class="symptom-tag" data-symptom="Cough"><i class="fas fa-lungs"></i> Cough</button>
+            <button class="symptom-tag" data-symptom="Sore Throat"><i class="fas fa-throat"></i> Sore Throat</button>
+            <button class="symptom-tag" data-symptom="Body Aches"><i class="fas fa-bone"></i> Body Aches</button>
+            <button class="symptom-tag" data-symptom="Nausea"><i class="fas fa-face-dizzy"></i> Nausea</button>
+            <button class="symptom-tag" data-symptom="Dizziness"><i class="fas fa-spinner"></i> Dizziness</button>
+            <button class="symptom-tag" data-symptom="Chest Pain"><i class="fas fa-heart-crack"></i> Chest Pain</button>
+            <button class="symptom-tag" data-symptom="Shortness of Breath"><i class="fas fa-wind"></i> Shortness of Breath</button>
+            <button class="symptom-tag" data-symptom="Runny Nose"><i class="fas fa-droplet"></i> Runny Nose</button>
+            <button class="symptom-tag" data-symptom="Stomach Pain"><i class="fas fa-stomach"></i> Stomach Pain</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Selected Symptoms</label>
+          <div class="selected-symptoms" id="selectedSymptoms">
+            <span style="color:var(--txt-3);font-size:.85rem">No symptoms selected yet</span>
+          </div>
+        </div>
+        <div class="form-nav">
+          <button class="btn btn-secondary" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Duration & Severity -->
+    <div class="form-step" id="step3">
+      <div class="card" style="border:none;box-shadow:var(--shadow-md)">
+        <h3 style="margin-bottom:.25rem">Duration & Severity</h3>
+        <p style="color:var(--txt-2);font-size:.9rem;margin-bottom:1.5rem">Help us understand the timeline and intensity.</p>
+        <div class="form-group">
+          <label class="form-label">How long have you had these symptoms? <span class="range-value" id="durationVal">3 days</span></label>
+          <div class="range-container">
+            <input type="range" class="range-slider" id="durationSlider" min="1" max="30" value="3" oninput="updateDuration(this.value)">
+            <div class="range-labels"><span>1 day</span><span>1 week</span><span>2 weeks</span><span>30+ days</span></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">How severe are your symptoms? <span class="range-value" id="severityVal">Moderate</span></label>
+          <div class="range-container">
+            <input type="range" class="range-slider" id="severitySlider" min="1" max="5" value="3" oninput="updateSeverity(this.value)">
+            <div class="range-labels"><span>Mild</span><span>Moderate</span><span>Severe</span></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Additional Notes <span>(optional)</span></label>
+          <textarea class="form-textarea" id="notesInput" placeholder="Any other details you'd like to share..."></textarea>
+        </div>
+        <div class="form-nav">
+          <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-success btn-lg" onclick="startAnalysis()"><i class="fas fa-wand-magic-sparkles"></i> Analyze Symptoms</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer-box">
+      <i class="fas fa-triangle-exclamation"></i>
+      <div><strong>Disclaimer:</strong> This is AI-generated guidance, not a substitute for professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: ANALYZING ==================== -->
+<div class="page" id="page-analyzing">
+  <div class="analyzing-page">
+    <div class="analyzer">
+      <div class="brain-anim">
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <div class="brain-icon"><i class="fas fa-brain"></i></div>
+      </div>
+      <h2 class="analyze-title">Analyzing Your Symptoms</h2>
+      <p class="analyze-text">Our AI is processing your health data with advanced algorithms...</p>
+      <div class="a-progress"><div class="a-bar" id="analyzeBar"></div></div>
+      <div class="a-steps">
+        <div class="a-step" id="aStep1"><span class="a-step-icon"><i class="fas fa-circle-notch fa-spin"></i></span> Processing symptom data</div>
+        <div class="a-step" id="aStep2"><span class="a-step-icon"><i class="far fa-circle"></i></span> Cross-referencing medical database</div>
+        <div class="a-step" id="aStep3"><span class="a-step-icon"><i class="far fa-circle"></i></span> Evaluating risk factors</div>
+        <div class="a-step" id="aStep4"><span class="a-step-icon"><i class="far fa-circle"></i></span> Generating recommendations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: RESULTS ==================== -->
+<div class="page" id="page-results">
+  <div class="results-content" id="resultsContent">
+    <!-- Populated dynamically by JS -->
+  </div>
+</div>
+
+<!-- ==================== PAGE: RECOMMENDATIONS ==================== -->
+<div class="page" id="page-recommendations">
+  <div class="rec-content">
+    <div class="section-header" style="margin-bottom:2rem">
+      <div class="section-label"><i class="fas fa-lightbulb"></i> Personalized For You</div>
+      <h2 class="section-title">Health Recommendations</h2>
+      <p class="section-subtitle">AI-curated lifestyle, diet, and preventive care tips based on your health profile.</p>
+    </div>
+    <div class="tabs" id="recTabs">
+      <button class="tab-btn active" data-tab="lifestyle" onclick="switchTab('lifestyle')"><i class="fas fa-person-running"></i> Lifestyle</button>
+      <button class="tab-btn" data-tab="diet" onclick="switchTab('diet')"><i class="fas fa-apple-whole"></i> Diet</button>
+      <button class="tab-btn" data-tab="preventive" onclick="switchTab('preventive')"><i class="fas fa-shield-heart"></i> Preventive Care</button>
+    </div>
+    <div class="tab-panel active" id="tab-lifestyle">
+      <div class="rec-list">
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--primary-100);color:var(--primary)"><i class="fas fa-person-walking"></i></div><div><h4>Daily Exercise</h4><p>Aim for 30 minutes of moderate activity daily. Walking, swimming, or cycling can boost your immune system and reduce stress.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--success-lt);color:var(--secondary)"><i class="fas fa-bed"></i></div><div><h4>Quality Sleep</h4><p>Maintain 7–9 hours of consistent sleep. A regular schedule helps your body repair and strengthens immunity.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:rgba(99,102,241,0.1);color:var(--accent)"><i class="fas fa-spa"></i></div><div><h4>Stress Management</h4><p>Practice mindfulness, deep breathing, or meditation for 10–15 minutes daily to lower cortisol levels.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--warning-lt);color:var(--warning)"><i class="fas fa-glass-water"></i></div><div><h4>Stay Hydrated</h4><p>Drink at least 8 glasses of water daily. Proper hydration supports every system in your body.</p></div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-diet">
+      <div class="rec-list">
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--success-lt);color:var(--secondary)"><i class="fas fa-carrot"></i></div><div><h4>Eat More Vegetables</h4><p>Fill half your plate with colorful vegetables. They provide essential vitamins, minerals, and antioxidants.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--warning-lt);color:var(--warning)"><i class="fas fa-lemon"></i></div><div><h4>Vitamin C Rich Foods</h4><p>Include citrus fruits, bell peppers, and berries to boost your immune system naturally.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--info-lt);color:var(--info)"><i class="fas fa-fish"></i></div><div><h4>Omega-3 Fatty Acids</h4><p>Consume fatty fish, walnuts, or flaxseeds 2–3 times per week to reduce inflammation.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--danger-lt);color:var(--danger)"><i class="fas fa-ban"></i></div><div><h4>Limit Processed Foods</h4><p>Reduce intake of processed sugars, trans fats, and excessive sodium for better overall health.</p></div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-preventive">
+      <div class="rec-list">
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--primary-100);color:var(--primary)"><i class="fas fa-calendar-check"></i></div><div><h4>Regular Health Screenings</h4><p>Schedule annual check-ups and age-appropriate screenings to catch potential issues early.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--success-lt);color:var(--secondary)"><i class="fas fa-syringe"></i></div><div><h4>Stay Up to Date on Vaccines</h4><p>Ensure your vaccinations are current, including annual flu shots and any recommended boosters.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:rgba(99,102,241,0.1);color:var(--accent)"><i class="fas fa-hand-sparkles"></i></div><div><h4>Hygiene Practices</h4><p>Wash hands frequently, maintain dental hygiene, and practice safe food handling to prevent infections.</p></div></div>
+        <div class="card rec-card"><div class="rec-icon" style="background:var(--warning-lt);color:var(--warning)"><i class="fas fa-brain"></i></div><div><h4>Mental Health Check-ins</h4><p>Monitor your mental well-being regularly. Don't hesitate to seek professional support when needed.</p></div></div>
+      </div>
+    </div>
+    <div class="disclaimer-box" style="margin-top:2rem">
+      <i class="fas fa-triangle-exclamation"></i>
+      <div><strong>Disclaimer:</strong> These recommendations are general wellness suggestions. Always consult your healthcare provider before making significant changes to your lifestyle or diet.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: DOCTORS ==================== -->
+<div class="page" id="page-doctors">
+  <div class="doctors-content">
+    <div class="section-header" style="margin-bottom:2rem">
+      <div class="section-label"><i class="fas fa-user-doctor"></i> Expert Care</div>
+      <h2 class="section-title">Recommended Specialists</h2>
+      <p class="section-subtitle">Connect with experienced healthcare professionals near you or online.</p>
+    </div>
+    <div class="doctors-grid">
+      <div class="card doctor-card">
+        <div class="doc-avatar">SP</div>
+        <h4>Dr. Sunita Patel</h4>
+        <div class="doc-spec">General Physician</div>
+        <div class="doc-rating">★★★★★ 4.9</div>
+        <div class="doc-info">15 years experience · MBBS, MD</div>
+        <button class="btn btn-primary btn-sm" style="width:100%"><i class="fas fa-calendar"></i> Book Now</button>
+      </div>
+      <div class="card doctor-card">
+        <div class="doc-avatar">AK</div>
+        <h4>Dr. Arjun Kumar</h4>
+        <div class="doc-spec">ENT Specialist</div>
+        <div class="doc-rating">★★★★☆ 4.6</div>
+        <div class="doc-info">10 years experience · MBBS, MS</div>
+        <button class="btn btn-primary btn-sm" style="width:100%"><i class="fas fa-calendar"></i> Book Now</button>
+      </div>
+      <div class="card doctor-card">
+        <div class="doc-avatar">MR</div>
+        <h4>Dr. Meera Reddy</h4>
+        <div class="doc-spec">Pulmonologist</div>
+        <div class="doc-rating">★★★★★ 4.8</div>
+        <div class="doc-info">12 years experience · MBBS, DM</div>
+        <button class="btn btn-primary btn-sm" style="width:100%"><i class="fas fa-calendar"></i> Book Now</button>
+      </div>
+    </div>
+    <div class="consult-banner">
+      <h3><i class="fas fa-video"></i> Can't Visit In Person?</h3>
+      <p>Get instant online consultation with verified specialists from the comfort of your home.</p>
+      <button class="btn btn-lg"><i class="fas fa-video"></i> Start Video Consultation</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: HISTORY ==================== -->
+<div class="page" id="page-history">
+  <div class="history-content">
+    <div class="section-header" style="margin-bottom:2rem">
+      <div class="section-label"><i class="fas fa-clock-rotate-left"></i> Your Journey</div>
+      <h2 class="section-title">Health Check History</h2>
+      <p class="section-subtitle">Track your past symptom analyses and health journey over time.</p>
+    </div>
+    <div class="timeline" id="historyTimeline">
+      <!-- Populated dynamically by JS -->
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn btn-primary" onclick="navigateTo('symptoms')"><i class="fas fa-plus"></i> New Symptom Check</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHATBOT ===== -->
+<button class="chatbot-toggle" id="chatToggle" onclick="toggleChat()" aria-label="Open chat assistant">
+  <i class="fas fa-comment-medical"></i>
+</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <h4><i class="fas fa-robot"></i> HealthSense Assistant</h4>
+    <button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">Hi! 👋 I'm your HealthSense assistant. How can I help you today?</div>
+  </div>
+  <div class="chat-quick">
+    <button class="quick-btn" onclick="chatQuick('Check symptoms')">Check symptoms</button>
+    <button class="quick-btn" onclick="chatQuick('Find a doctor')">Find a doctor</button>
+    <button class="quick-btn" onclick="chatQuick('Health tips')">Health tips</button>
+    <button class="quick-btn" onclick="chatQuick('How does this work?')">How it works</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
